@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giai thừa và Lũy thừa</title>
+    <style>
+        html, body {
+            font-family: Verdana, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        header {
+            background-color: aquamarine;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+        nav a {
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 18px;
+        }
+        nav a:hover {
+            background-color: lightblue;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+            color: black;
+        }
+        form {
+            text-align: center;
+            padding: 20px;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Trang Chủ</a> |
+            <a href="thoikhoabieu.html">Bài tập lập thời khóa biểu</a> | 
+            <a href="Baitho.html">Bài thơ</a> |
+            <a href="luythuavagiaithua.html">Tính toán Giai thừa và Lũy thừa</a>
+            <a href="tamgiac.html">Tính tam giác</a>
+        </nav>
+    </header>
+    <h2>Nhập thông tin để tính Giai thừa hoặc Lũy thừa</h2>
+
+    <form id="factorialForm" onsubmit="return tinhtoanGiaiThua(event)">
+        <label for="number">Nhập số để tính giai thừa:</label>
+        <input type="number" id="number" required><br><br>
+        <input type="submit" value="Tính giai thừa">
+    </form>
+
+    <br>
+
+    <form id="powerForm" onsubmit="return tinhtoanLuyThua(event)">
+        <label for="base">Cơ số:</label>
+        <input type="number" id="base" required><br><br>
+        <label for="exponent">Số mũ:</label>
+        <input type="number" id="exponent" required><br><br>
+        <input type="submit" value="Tính lũy thừa">
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function tinhtoanGiaiThua(event) {
+            event.preventDefault();
+            let number = parseInt(document.getElementById('number').value);
+            if (number < 0) {
+                document.getElementById('result').innerHTML = "Vui lòng nhập một số nguyên không âm.";
+                return;
+            }
+            let factorial = 1;
+            for (let i = 1; i <= number; i++) {
+                factorial *= i;
+            }
+            document.getElementById('result').innerHTML = `
+                <p>Giai thừa của ${number} là: ${factorial}</p>
+            `;
+        }
+
+        function tinhtoanLuyThua(event) {
+            event.preventDefault();
+            let base = parseFloat(document.getElementById('base').value);
+            let exponent = parseInt(document.getElementById('exponent').value);
+            if (isNaN(base) || isNaN(exponent)) {
+                document.getElementById('result').innerHTML = "Vui lòng nhập cơ số và số mũ hợp lệ.";
+                return;
+            }
+            let power = Math.pow(base, exponent);
+            document.getElementById('result').innerHTML = `
+                <p>${base} lũy thừa ${exponent} là: ${power}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tam giác</title>
+    <style>
+        html, body {
+            font-family: Verdana, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        header {
+            background-color: aquamarine;
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+        nav a {
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 18px;
+        }
+        nav a:hover {
+            background-color: lightblue;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+            color: black;
+        }
+        form {
+            text-align: center;
+            padding: 20px;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Trang Chủ</a> |
+            <a href="thoikhoabieu.html">Bài tập lập thời khóa biểu</a> | 
+            <a href="Baitho.html">Bài thơ</a> |
+            <a href="luythuavagiaithua.html">Tính toán Giai thừa và Lũy thừa</a>
+            <a href="tamgiac.html">Tính tam giác</a>
+        </nav>
+    </header>
+    <h2>Nhập thông tin các cạnh của tam giác</h2>
+    <form onsubmit="return tinhtoan(event)">
+        <label for="Canh1">Độ dài cạnh 1:</label>
+        <input type="number" id="Canh1" required><br>
+        <label for="Canh2">Độ dài cạnh 2:</label>
+        <input type="number" id="Canh2" required><br>
+        <label for="Canh3">Độ dài cạnh 3:</label>
+        <input type="number" id="Canh3" required><br><br>
+        <input type="submit" value="Tính toán">
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function tinhtoan(event) {
+            event.preventDefault(); 
+            let a = parseFloat(document.getElementById('Canh1').value);
+            let b = parseFloat(document.getElementById('Canh2').value);
+            let c = parseFloat(document.getElementById('Canh3').value);
+            if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a) {
+                document.getElementById('result').innerHTML = "Đây không phải là một tam giác hợp lệ!";
+                return;
+            }
+            let perimeter = a + b + c;
+            let s = perimeter / 2;
+            let area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+            let triangleType = "";
+
+            if (a === b && b === c) {
+                triangleType = "Tam giác đều";
+            } else if (a === b || b === c || a === c) {
+                triangleType = "Tam giác cân";
+            } else if (Math.pow(a, 2) + Math.pow(b, 2) === Math.pow(c, 2) ||
+                       Math.pow(a, 2) + Math.pow(c, 2) === Math.pow(b, 2) ||
+                       Math.pow(b, 2) + Math.pow(c, 2) === Math.pow(a, 2)) {
+                triangleType = "Tam giác vuông";
+            } else {
+                triangleType = "Tam giác thường";
+            }
+            document.getElementById('result').innerHTML = `
+                <p>Chu vi: ${perimeter.toFixed(2)}</p>
+                <p>Diện tích: ${area.toFixed(2)}</p>
+                <p>Loại tam giác: ${triangleType}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
